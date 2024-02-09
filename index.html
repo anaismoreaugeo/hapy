@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+  }
+  button {
+    cursor: pointer;
+    background: #b7ceb0;
+    border:none
+  }
+  .header {
+    flex-shrink: 0;
+    width: 100%;
+    padding: 10px 15px; /* Ajoute une marge autour du select */
+    box-sizing: border-box; /* S'assure que le padding est inclus dans la largeur */
+  }
+  #filter {
+    margin-top: 40px;
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-around;
+    height: 30px;
+  }
+  #selectOption {
+    background-color: #83b56b;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 5px;
+  }
+  #urlSelector {
+    border-radius: 100%;
+    text-align: center;
+    color: #1f3b11;
+    font-weight: bold;
+    width: 100%; /* Assure que le select prend toute la largeur disponible */
+    padding: 10px; /* Ajoute un peu d'espace à l'intérieur du select */
+    background-color: #c2d6b6; /* Un vert clair */
+    border: none; /* Supprime le contour */
+    border-radius: 5px; /* Arrondit légèrement les coins */
+    -webkit-appearance: none; /* Supprime le style par défaut sur iOS */
+    -moz-appearance: none; /* Supprime le style par défaut sur Firefox */
+    appearance: none; /* Supprime le style par défaut pour les autres navigateurs */
+  }
+  .content {
+    flex: 1;
+    overflow: hidden;
+  }
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .toggle-buttons {
+    position: fixed;
+    bottom: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  .footer {
+    width: 100%;
+    position: fixed;
+    color: #1f3b11;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    background: #b7ceb0;
+    padding: 10px 0;
+  }
+  #ScanDiv {
+    margin:auto 0;
+    align-self: center;
+    width: 100px;
+    position: fixed;
+    bottom: 100px;
+    color: white;
+    padding: 10px;
+    border-radius: 50px;
+  }
+  #Scan {
+    width: 100px;
+    position: fixed;
+    bottom: 100px;
+    background-color: #1f3b11;
+    color: white;
+    padding: 10px;
+    border-radius: 50px;
+  }
+  .footer button, .toggle-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    margin: 0 5px;
+  }
+    /* Style simple pour le bouton bascule */
+    .toggle-button {
+      color:#1f3b11 ;
+            display: inline-flex;
+            cursor: pointer;
+            background-color: #83b56b;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+            place-items: center;
+        }
+        .toggle-button p {
+          padding-right: 10px
+        }
+        .toggle-button.active {
+            background-color: #6a9456;
+        }
+        #circle
+         {
+          margin: 5px;
+        position: relative;
+       /* Espace depuis le haut du container */
+        left: 3px; /* Espace depuis la gauche du container, au début */
+        width: 18px; /* Diamètre du cercle */
+        height: 18px; /* Diamètre du cercle */
+        background-color:#1f3b11; /* Couleur de fond du cercle */
+        border-radius: 50%; /* Rend le div complètement rond */
+      }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <select id="urlSelector">
+    <option value="https://my.spline.design/untitled-8a296c9ac7d682536c538b82290742d6/">Fruits et légumes ⮟</option>
+    <option value="https://my.spline.design/untitled-738d2e1fa904e7642a61b9e3dbfd2e5c/">Produits laitiers ⮟</option>
+    <option value="https://my.spline.design/untitledcopy-54756e49045aed2b7603def680dd07fa/">Aliments protéinés ⮟</option>
+    <option value='https://my.spline.design/untitled-4bb841004313555eacb843089d3b05b8/'>Céréales ⮟</option>
+  </select>
+  <div id="filter">
+    <select id="selectOption">
+      <option value="glossaire">Glossaire complet</option>
+      <option value="autre">Mes commandes</option>
+  </select>
+  <div id="toggleButton" class="toggle-button"><div id="circle"></div><p>Vue 3D</p></div>
+  </div>
+</div>
+
+<div class="content">
+  <iframe id="contentFrame" src="https://example.com"></iframe>
+</div>
+
+<div class="toggle-buttons">
+  <button id="toggle1">Toggle 1</button>
+  <button id="toggle2">Toggle 2</button>
+</div>
+
+<div id="ScanDiv">
+  <button id="Scan">Scanner</button>
+</div>
+
+<div class="footer">
+  <button><img src="icone.png" alt="Icone 1"/><br>Home</button>
+  <button><img src="icone1.png" alt="Icone 2"/><br>Equilibre</button>
+  <button><img src="icone2.png" alt="Icone 3"/><br>Evolution</button>
+  <button><img src="icone3.png" alt="Icone 4"/><br>Formation</button>
+  <button><img src="icone4.png" alt="Icone 5"/><br>Profil</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Définir l'URL par défaut de l'iframe
+    var iframe = document.getElementById('contentFrame');
+    var defaultURL = 'https://my.spline.design/untitled-8a296c9ac7d682536c538b82290742d6/'; // Remplacez par l'URL souhaitée
+    iframe.src = defaultURL;
+
+    // Gestionnaire pour le changement d'URL basé sur la sélection
+    document.getElementById('urlSelector').addEventListener('change', function() {
+      iframe.src = this.value;
+    });
+
+    const toggleButton = document.getElementById('toggleButton');
+    let isListe = true; // État initial du bouton bascule
+
+    toggleButton.addEventListener('click', () => {
+        isListe = !isListe; // Bascule entre l'état liste et 3D
+        if (isListe) {
+            toggleButton.textContent = 'Vue liste';
+            toggleButton.classList.remove('active');
+        } else {
+            toggleButton.textContent = 'Vue 3D';
+            toggleButton.classList.add('active');
+        }
+    });
+  });
+</script>
+
+
+</body>
+</html>
